@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_e-boutique
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789
+      POSTGRES_DB: e-boutique
+    ports:
+      - "5444:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - e-boutique-net
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: e-boutique_app
+    depends_on:
+      - db
+    ports:
+      - "9083:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/e-boutique
+    networks:
+      - e-boutique-net
+
+volumes:
+  db-data:
+
+networks:
+  e-boutique-net:

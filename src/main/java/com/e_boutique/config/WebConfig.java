@@ -10,14 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WebConfig {
 
-    @Bean
-    public FilterRegistrationBean<RateLimitingFilter> rateLimitingFilter() {
-        FilterRegistrationBean<RateLimitingFilter> registration = new FilterRegistrationBean<>();
-        registration.setFilter(new RateLimitingFilter());
-        registration.addUrlPatterns("/*"); // Appliquer à tout
-        registration.setOrder(1); // prioritaire
-        return registration;
-    }
+
 
     @Bean
     public FilterRegistrationBean<XssProtectionFilter> xssFilter() {

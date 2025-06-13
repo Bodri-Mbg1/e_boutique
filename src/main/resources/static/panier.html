@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon panier</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f5f5;
+        }
+
+        header {
+            background-color: #ffa500;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-left input {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: none;
+        }
+
+        .header-right i {
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        main {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .panier-gauche {
+            flex: 3;
+        }
+
+        .produit {
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .produit img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .infos {
+            flex: 1;
+        }
+
+        .infos h4 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .infos small {
+            color: #888;
+        }
+
+        .prix {
+            font-weight: bold;
+        }
+
+        .quantite {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .quantite button {
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .supprimer {
+            color: white;
+            background: #ff4d4d;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .panier-droite {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            height: fit-content;
+        }
+
+        .panier-droite h3 {
+            margin-top: 0;
+            color: #ffa500;
+        }
+
+        .btn-payer {
+            background: #ffa500;
+            color: white;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-payer:hover {
+            background: #e09100;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <div><strong>Boutique</strong></div>
+        <input type="text" placeholder="Recherchez un produit">
+    </div>
+    <div class="header-right">
+        <i class="fa fa-user"></i>
+        <i class="fa fa-shopping-cart" onclick="window.location.href='panier.html'"></i>
+    </div>
+</header>
+
+<main>
+    <div class="panier-gauche" id="contenu-panier">
+        <p>Chargement...</p>
+    </div>
+
+    <div class="panier-droite">
+        <h3>Paiement</h3>
+        <p id="nb-elements">0 élément</p>
+        <p>Total : <strong id="total">0 ₣</strong></p>
+        <button class="btn-payer" onclick="window.location.href='commande.html'">Poursuivre l'achat</button>
+    </div>
+</main>
+
+<script>
+    const contenuPanier = document.getElementById('contenu-panier');
+    const totalElement = document.getElementById('total');
+    const nbElements = document.getElementById('nb-elements');
+
+    fetch("http://localhost:8080/api/cart", { credentials: "include" })
+        .then(res => res.json())
+        .then(data => {
+            if (!data || data.length === 0) {
+                contenuPanier.innerHTML = "<p>Votre panier est vide.</p>";
+                nbElements.textContent = "0 élément";
+                totalElement.textContent = "0 ₣";
+                return;
+            }
+
+            contenuPanier.innerHTML = "";
+            let total = 0;
+            let totalArticles = 0;
+
+            data.forEach((item, index) => {
+                const produit = item.product;
+                const quantite = item.quantity;
+                const sousTotal = produit.prix * quantite;
+                total += sousTotal;
+                totalArticles += quantite;
+
+                const div = document.createElement("div");
+                div.className = "produit";
+                div.innerHTML = `
+          <img src="${produit.imageUrl}" alt="${produit.nom}">
+          <div class="infos">
+            <h4>${produit.nom}</h4>
+            <small>${produit.description || "Produit"}</small><br>
+            <span class="prix">${produit.prix.toLocaleString()} ₣</span>
+          </div>
+          <div class="quantite">
+            <button onclick="modifierQuantite(${produit.id}, -1)">–</button>
+            <span>${quantite}</span>
+            <button onclick="modifierQuantite(${produit.id}, 1)">+</button>
+          </div>
+          <button class="supprimer" onclick="supprimer(${produit.id})">
+            <i class="fa fa-trash"></i>
+          </button>
+        `;
+                contenuPanier.appendChild(div);
+            });
+
+            nbElements.textContent = `${totalArticles} élément${totalArticles > 1 ? 's' : ''}`;
+            totalElement.textContent = `${total.toLocaleString()} ₣`;
+        });
+
+    function modifierQuantite(productId, changement) {
+        fetch("http://localhost:8080/api/cart", {
+            credentials: "include"
+        })
+            .then(res => res.json())
+            .then(data => {
+                const item = data.find(i => i.product.id === productId);
+                if (!item) return;
+
+                const nouvelleQuantite = item.quantity + changement;
+                if (nouvelleQuantite < 1) return;
+
+                fetch(`http://localhost:8080/api/cart/update/${productId}?quantity=${nouvelleQuantite}`, {
+                    method: 'POST',
+                    credentials: 'include'
+                })
+                    .then(res => res.text())
+                    .then(() => location.reload())
+                    .catch(() => alert("Erreur de mise à jour"));
+            });
+    }
+
+
+    function supprimer(productId) {
+        fetch(`http://localhost:8080/api/cart/remove/${productId}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        })
+            .then(res => res.text())
+            .then(() => location.reload())
+            .catch(err => alert("Erreur lors de la suppression."));
+    }
+
+    function commander() {
+        const nom = prompt("Votre nom ?");
+        const email = prompt("Votre email ?");
+        const adresse = prompt("Votre adresse ?");
+
+        if (!nom || !email || !adresse) return alert("Tous les champs sont requis");
+
+        fetch("http://localhost:8080/api/orders/place", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ clientNom: nom, clientEmail: email, clientAdresse: adresse })
+        })
+            .then(res => res.text())
+            .then(msg => {
+                alert(msg);
+                location.href = "index.html";
+            })
+            .catch(() => alert("Erreur lors de la commande"));
+    }
+</script>
+
+</body>
+</html>

@@ -159,7 +159,7 @@
         <h3>Paiement</h3>
         <p id="nb-elements">0 élément</p>
         <p>Total : <strong id="total">0 ₣</strong></p>
-        <button class="btn-payer" onclick="window.location.href='commande.html'">Poursuivre l'achat</button>
+        <button class="btn-payer" onclick="verifierConnexion()">Poursuivre l'achat</button>
     </div>
 </main>
 
@@ -267,6 +267,20 @@
             })
             .catch(() => alert("Erreur lors de la commande"));
     }
+
+    function verifierConnexion() {
+        const token = localStorage.getItem("token"); // ou sessionStorage selon ton projet
+
+        if (token) {
+            // ✅ connecté, continuer vers la commande
+            window.location.href = "commande.html";
+        } else {
+            // ❌ pas connecté, rediriger vers login
+            alert("Vous devez vous connecter pour poursuivre votre commande.");
+            window.location.href = "login.html";
+        }
+    }
+
 </script>
 
 </body>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion / Inscription</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        body { display: flex; height: 100vh; }
+
+        .left, .right { flex: 1; }
+        .left { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; background: #fff; }
+        .right { background: #ff6f00 url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhIQDxITExAPERASEBcQEhUVEREXFxUXFhUSFRUYHyggGRsnHxUTITEhJykrLi4uFx8zODMsNyktLisBCgoKDg0OGxAQGy0mICMwLzcyLS4vLzAvMDEtMC0vLy0tNy8tLS0tLS0vLS0tLy0vLy0wLS0tLS0tNS8tKy0wLf/AABEIALoBEAMBEQACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABAUCAwYBB//EADwQAAIBAgQDBQQJAwMFAAAAAAECAAMRBBIhMQVBUTJhcYGRBhMioRQzQmJygrHB8FKS0RUj8UNTc8LS/8QAGgEBAAIDAQAAAAAAAAAAAAAAAAMEAQIFBv/EADYRAAIBAgMECQMEAgIDAAAAAAABAgMRBCExEhNBUQVxgZGhscHR8CIyYRRCUuFy8SOSJGKC/9oADAMBAAIRAxEAPwCdPCnvxAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAF4BHfGoDYHMw+zTBdv7VuZZjg60lfZsuby87FSeOoRdtq75LN+FwHrN9XRt0NVwo9FzMPMCSLDU1981/8pvzsvMjeLqS+ym+uTS934G+nwus31lYKOlFACPzNmv6LJFGjHSF/8n6K3myKUq8vunb/ABXq7+RtxPBKaoWINRrj6y7j+1rgeVptOtUjD/jdv8Ul5Z+JrChSnO1RbX+Tb88vAr8O2R/d/YcE073OUjt079NmHiw2WVqn/LT3vFZS9H26P824stUv+Gpuno84+sezVfj8ImSqXBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAwrNYE3tbc2vlHNrc7C5ktGMZVIxlo2iHETlClKUdUnY04HDo6lnGZveVkYMSQhSoy+7ynQ2UIbkXOa+xAHUxlSeHqbuktlfjV9upyMHThiKe3Vbk78W7Ls0LRKQUABQBuANvIcpz5OTd5ZnQioxVoq3VkSaGptYnoF1M3hmzWeSLKjw6ow7IQdWOvoNZbjQnLhbrKksRCPG/Ua8fh6CL/vVC3xDSnz0Ohtf9RNasKMI/XK/UbUZ1py+iNus5riwpvpRBp2sULknK6k5XOp05HXUFusqU61NVUop7Lya539fUt1KNSVL6pLaWafJruy5/g2cKU1wMgsT27n6sg2YMR0II77TDws1VdPlx/HPtN1jKboqq+PD88uwuaXAL71PJV/cmWI4DnLwKkuk+UfH+hxXgnu0zoWbL9Ze2g5EWHLn490jr4VQjtRd+ZJhcc6s9maSvoUspHREAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAK7BP7uuaZ7NcDL3VEU5P76ale9qS9Z3Kv/lYRVf3R1+ePaeepL9JjHS/bLT09uo6nBVMOqg1AzVNbj7O+lthbbeUqUqCjeSbZfqxruVotJEg8ZIFqSKg8Ln9h+skeMaygkiJYNPObbK3GcX+LI7s7kAhFBZrG9jlGg7La9xmYwq1ltN5c27IxOdGi9lLPkld/OspuL8WsAHKUgDezMHq7f0Lt5mZdGk1bOfVku959yLFCni6ucYqC5yz9l4sh8GR8XUyUEZ1Uj3lSr9XTH4F0J6L+guZNCE0rRtFf+uv/AGd2b16GHoLaxEnN8E9O7Rddj6PwfAjDUxRoU8q3JN1uWJ5knyAGwAAFgAJa25cczz7UbtrL8LTsLT3ptYnxt+gmJVXaxlQWpqYXBB1BFiDsR0kRInbNHG8VwJpVCv2Dqh7uniNv+Zxq9Ldytw4HoMNX30L8eJCkJYEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQCt45hiyB1OV6ZDKw3SxBD/lIDeU6nRVdQqOnLSXn/enccnpfDudJVI6x8uPdr3llgsV7xFqAZc4OZRsjglalPwDBgO7KecgxVB0arhw4E2Er7+kp8ePWSVMgTJ2c77Yh1FOuvZp5kbWxGe2htqVO3dYHedHAVVFuLzT4fOKIqlCNVZZTWcZcnyfNPj66FFhOHUqnuyrMxqiuhDHWm4XNT2308tuREsYpSpZx+26s+a4kuFxtSupbatKOq5P2fD1LXh1dKRDMVQVcPSYgafEnwtp11+RlVKd7cpSXqiTEUXVjZarQ6zA4kqQQdQQRJE7HEkr5M7HDVw6h157joeY/nIiTa5la1nZmGOxa0kao5sqKWPM2HQcz3TDaWbN6dOVSShHVnG4niRxFquoQ3yKwIK9bg8+/9rTn42E01JvLgd+hQjRWwteL5miUScQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAPGFxY7HQzKbTujDSasys4S3u6r0DtUJZPxqtyPz019aHfO/jIrE4aNeOq19fE85g28LiZUJaPT0+dZdAzho7rRE45Q95h6yb3QkeK/EPmBJ6MtmaYj9yOCBakxKkMpSkxFM2tmW4IJJIZST6nkSJ2qdSMouE1ln4FetQqxqRrUnaayd9Gr6Pn8/DUvhOLpkjMoHw1Uew1YONj4H5GVatKTzvxT7vc67jGrG8H2fNC64NxdVC0ahs4Cgacra37hbfvEzUi9Ujn4rB7dRyg+tHS8H9raFNstVmRXtfNTY5Tyay3/hm0YtanPl0dXm/pjd/Odil4/7VPWb/AGkPuwT7vMCS19C2UaE8udtut10dnCdHQoRvN3fG3vyMuDZmU1KjFnZiNToANLAbDW85uNm3PZfAlrWT2YqyLCUyEzpUixsoJNibDfTew5zeMJS+1XNJ1Iwzk7GJFjY6Ebg7jymrVnZm6d1dHkwBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQDNKZIJAJCi7EAkKOp6TZRbTaWhhyimk3qYTUyIBX8VoE5XQ5XDJlb+hwwak/k4APc7TrdFV0pujLSXn/a8kcbpjD3gq0dY+X9PwuWGGxAqItRRlFQZsvNDcq9M96srr+W/OU8VRdGq4FvC11WpKff1m6/XbnIkTM+e41mRilgRTVqR0sSouwJ77A69AJ3KaUo7SJ9patZPPy9yE1IlswYliQDc6klmBv6LfxkllayEdqDv4rqd/Is8PUc0g4Pw2/gkbjbiXYVtr9vC5qpue1pfKrgEAi5NxvM7KXeYdR1Fa2Tjfl+NeBMTE6pfRabLqouRd2a9vM+kidPVrj7WNpKKUlxsvTidFwZLUaY6gn1JP7zk4l3qyIK7vUZNkBCbsCxDq67qbjv7vPadPDw2I34nHxVTeStwOzODDjJUUEHVc1iUP6jobS/sRqLZkrnNjVnTe1BtHLcX4f7ptB8BNh9081M5GKw+6ldaM72DxW+jaWq8fyV8qFwQBAEAQBAEAQBAEAQBAEAQBAEAQCfw/hjVPib4U682/D/n9ZaoYWVTN5Ip4nGRpfSs5eXX7HVYGgqJZBYE/ppe/Pn6TqqMYR2YnDnUlUm5SdyHj+CU6lyvwP1UfCfFf8WlarhYTzWTLlHG1KeTzRzuO4fUpdsfDyZdVPny85z6lGdPXTmdajiKdX7Xny4kKogYFW1DAg94OhkcZOLUlqiScVKLi9GQeGVStR6LH6wtUX/yoo98Pz0xTq2+4/Wd3HRWJw8cRHhr693seewMnhsRLDy46eneWZnDTO60c5xzCBjqNbWvz1vceGst0qzi8iNScOrkc/WosrXOxI1HU1MxNvzGdOFWM1+S3RknnD8XXf76llhiPoa2Gmc6ftMz9SxQack0v2kShSZ7KoJzU1sBsP4Jic407yk+ITbguEXHsvcuE4VlBqVPiykOyC9io7WvUDX8pGt5UhilWnu45XvZ/n+9Cri8W6MNumslba52XLq149h0CWsMtstha21uVu6cp3vnqZT2sz2YBe+zeEzH3h2Tbvbl6b+k7FCW3FS+XOBio7E3D5Y6OTlUqPaXFgU/d6FqnXXKAbk/oPXpKuMq2hs8y/wBH0dqpt8EctOUdoQBAEAQBAEAQBAEAQBAEAQBAEAk8Nw+eoiWuCbnvA1I/bzk2Hp7yookGJq7ulKR2qYYKM1Q26Abn0noFBLOR5hyvkjdWIvYCwGk0qSTeRtTWVzXIzc113AUk7AEm+1gLn5AzDaSuzaKbkktTg7/wbTgnpyt4rSYFalLSorI1MnYVEOalfuPxIRz94BO10TWV5UJaPNevhn2HD6YoNbNeOqyfp7dpY0ayuqVKf1dVQ6A7qDuh71IZT3qZzcTRdGq4HRw1ZVqSmvjIfEaV7yKMrMllG6KKrT3BGkuRlxRVzi7owBsmTQJe+u/rLG/k1Yu08VUbtGN5fOBuOaiFYoQGJAzaaqFJBG40dDqNiJHUpSlnMsYfCzryvOWnBZ637OD05F7hquZVe1iQG8Jy5LYlZcDSpBRk46mfDMJUBaklKo1MAPRKozKEYn/buB9kggfdy986NelOuo1oRbb1suK49uvXc5mHqxw8pUJySUdLtaPh2adViVUpsps6lT0YEH0MoyhKDtJNdZfjOM1eLv1Gyhi3TRGIF723W/Wx0voJtCrOH2s0qUKdT7lcsKPtBUHaCt6g+uo+UsRxs1qkypPo6m/tbXj87yBj8UarlzpfQDfKBsP51Mr1ajqS2mW6NJUoKKI8jJRAEAQBAEAQBAEAQBAEAQBAEAQC+9mAVz1ANTZFJ5c2/wDWdPo9bO1PsOT0pO+zT7fRepeUAWa5ubany1AnQu3mcl2SsbpGbiAVvH6uWi/UgKPzGx+QaQYmWzSf5LWChtVl+M/nacjOOd8wrUgylTswtpuOhHeN5vTm6clOOqNKtONSDhLRkDg9UhqlBtCc9emOQYWGJpju7NUDoXPOdzpGmq9GNeHxf16Hn+jakqFaWHn8f9+qJlUXvPPN5noksiDUwl5KqtiJ07lcEq0qwamfiRrobZvLKdD0l6lXUUpIu/qMPGhunBtvVLK/5uWvDPZ+rXbM7FsuUFnJNrAAC/hbQSWjCrin9GnN/MznYzpFUY2n9Kf7Y8es7PC8LpUVLumcoLlmOwH9K8vmehnSpdH0MNF1J5tZ3fojz1XpHEYmSp0/pTysvV/6J3CuNpVOWmoWpqSj6l7A6q47RHQi56zfC9I0sQ9lZPl7GmL6Mq4dbWsea9S8WnTrIbgEfaV7Mt+nMeY1l2cIzWzJXRRp1JU5bUHZ/g4z2j4OKJFSkb0WYrvc02H2D+19evf5npDA7h7UPtfgep6Ox/6hbM/uXiufuUs5p0xAEAQBAEAQBAEAQBAEAQBAEAQBAEAuqPE6dKmqKM7gXbkgJ1NzufL1nZoSjCmkszgYmMp1pN5exGfiLuQWbbYDQL4AbeMy5NmqgloWuD40dqozDqO2P/r+azZT5kbp/wAS4o1VcXQhhztuPEbib9RHpkzn/aet2E6szemi/q0oY6WUYnU6MhnKXZ88ChnPOqIBUcYRkZK9IXdGDoDsXQG6HudMyHwA5zu9E1lOMqEutevv3nn+mKLhOOIj2+j9O4sSysFemSadRVqUyd8rC4B7xse8GcbFUXRquDOzhqyrUlNcTyVyc9RCSAN2IA8ToJvCLlJRXExKSinJ8DuquNw2EpKtRwoUaDd3PNgo1Nz6XntIqnhqSjeyR4qW+xdVySu34f6OQ457XmuDSo0/d0iRmLa1WAIPLRdu+/WcrGY/eRcILJ8zsYLo9UZqpJ3a5af2RqNS2WojWdWBW17i2oa+284Mfoe0nmn8Z3HaS2WsmviPouKNStTpuh/26lOmcinKxLakFtbJa2ijMdRtPb0p7cFLmjw1anu6kocm13ETGJTFFsIxT3tW+Vaa2sxN0LanmFFySTeR4mlvaUoc148CTCVtzWjPk8+rj4HEgzxh7cQBAEAQBAEAQBAEAQBAEAQBAEAQBABE3jOUXdGk6cZq0kebS5TxKeUsihVwclnDPzNlOtLDkkrtlRRbdksyTSxxUgqSGGxBtIJYqMftzLEcDKX35I143GNVYPUtcKF0FhYXP7mVKtWVSW1I6FCjGjHZiR5ESiAacUgZSt7E7H+kjVW8iAfKS0arpVFNcCHEUY1qbpviVvAqulTDkWNPNXojojNavSGn2KnxDudzynZ6VoqrTVeHxfPU4nRNZ0qkqE/jXzyLGedPQmnEoxylWZCjq4KkXuuoBvuL2PlJ6FXdz2lqR1aanHZehCalmctVZiW1Zjd3PS5Op6S2q28leoyq6exG1Ndmh5Rw8glMmjEzfiCp8CA1HOypsOt2/wCbc7SelgZTW8qPZjzfovn4KtXHxg93SW3PkvVne8OxOKqUMLTpBUvRQ1ag2WzMpQNrbscrn9Z6bCuDox2HdWy7MjzWLU1WlvPuvn25lpgsFToGy3qV2JJJ3F7XP3RoO+TlY5XjeANGqwt8DEtTPIgnbxG3p1nkMdh3QrNcHmvn4PaYDFLEUU+KyfX/AHr/AKIEplwQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAMHqgd8GLmpqx8IFzAnrBg8gFbjs1OotemMzUz7wLyey5a1I9z07j8pnf6LqqrSlQlw8n7PzPPdK0nSrRrw4+a915Fy+XRkOam6q9Nv6kYBlPjYi45G4nDxFF0ajg+B3qFZVqamuJ7Wy3+G+X71ryOezf6SSN7fUQMZXSn2j8Vr5R2rdTfRR3sQJbw2ErV/tWXN6FPE4yjQ+558lqQ8lSr2j7umeQ7TDvvqfMAfdO8uOeGwv2fXPnwXz40U1DE4v7/ohyX3P2+ZMm4fDogsgA69T4mc+vXqVpbVR3OhQw9OjHZpqx3XsjiC+HNJWCmlUN9LnI9zp33zT0HRFXaobP8X5/Gef6ZpbNZT/kvFZeVi/w9JRdV3Fs2t3PQud+X82nVOQY4rCBgUqp7ymdeQK9LWta19999ZHVpQqx2Zq6JaVadKW1B2ZQ432Zph1WnVcM97K1NqluerJ2RrznIqdDRbvTlbrzO1S6cklapC/5WXuQ8Z7NvTAL1aIDGy61CzeChCTKr6GrcJR8fYsrpuhxjLw9yJxDhoogZ6qmoQCEVWzAdXzWy+B17pVxOEVDKU03yXryLmGxf6jOMGo836a3K+Uy4IAgCAIAgCAIAgCAIAgCAIAgCAIBHq1L6Db9YMNmuDAgCAIBHxTjLoRmFmXoGGov3cj3EyzhKsqVVTXDy4lbF0o1qUqb4+fAy4a5WmF93WNDMzYZ6VGpWCBjmfC1BTBZWRy5Gmoc7WE7ePwLxNp09fM4XR+PWGvTq3t5MicQ4oQSiXUg2Oqmr+Yi60vAZm/BK9PAUMP9VZ7T5fPnWWZ47EYn6aK2Y8/nzqK6i9tba3vz3/q1uSfvEk980xGInVWzpHkvn9EuGwtOi9rWXN/P7JIxRlLdovbZkMWZjdmdstvZzj5w9YObmmwy1QNyp5jvG/y5yzg6u4qX4PUq4yisRT2ePA+m4TDhgtXDurUmBKMuwB3059CDbb4jyHpYyUldHl5QlBuMlZm6njDW0w9jT1DVb/CDp9ULfG2pN9tBve8yakEY5FLphVLtqa9eoVFJOpqVDbNboot46zDaSuzMYuTslmc9jONqrH3BNSqdGxFQfF4UlPYHK++ultJwsZ0r+yj3+3uegwXRKVp1+739ipJvqdSdSTuT1M4jd3dneStkjyYAgCAIAgCAIAgCAIAgCAIAgCAIA8dpkEatTykj0PUcjElZ2I4u6uYTBsIBrapMpGrZpZiZukjVtml8MxkiqJGrg2YJgWGYK7qH7YR2UP3MAfi85YhjqkFaLyK88FTm9qUU2YLw22wkTr3zZKqKWSPfoMxvRux9CMb0bsfQzM70bB6MIZjeGdgtODcSxGGN6FQqCbsp1pt4qdL94175NRxlSl9rIa2Ep1l9a9zp19t3dClfDU3DCzZKj0we7mbecurphrWPiUJdDQf2ya7L+xUcT4q9ayWFOivYpJ2B3sd3bvPynPxWOqV3nkuRfwuCp4dZZvn80IlKncgevcOZlItt2RvglEAQBAEAQBAEAQBAEAQBAEAQBAPCZkGp3myRrcxw9UFQj8uy3Ne49RMtp5MxOLTvE9q4dl13XkRqp85o4tGIzTyNUwbHmWLmLHoWDJ7AEAQD20GBaALQD3LAGWDB7lgG6jhi2uy8ydBCVzWU0jKqwAypz7R5nuHQTJiKbd2JgnEAQBAEAQBAEAQBAEAQBAEAQAZkGpzNkas0uZsjVkXC1gSV+0CfMdYqwtnwMwntZcSyw9QjY269D4iQbTWhiUU9SSFRu0mvVNPltMb3miO0lo+8HhynsvbucfuJneQfGxjeyWq7jW/DKg2yt+FhNkk9GjKrx4mlsHUG6N6TOzLkbKrB8TA0iNwfQzFmbbS5nmU9IM3M1osdlY+AMyot8DVzitWSKfDKzdmlUP5TJFQqvSL7iN4iktZLvJCcAxJ/6LDxsJIsHX/iyJ42gv3Iy/0KqO1kX8Tj9ph4aa1su0LGU3pd9h7/AKUB2qgP4AT8zaabu3Ezv29F3nvukXsrc9XN/ltMWSMXk9X3EevUJ3P+BMMkjFLQgVX+JRzJHkJhRurkqZImpKIAgCAIAgCAIAgCAIAgCAIAgCAYMs2TMWNTpNkzVoq8XhSDmGhvcESxCaasyCUHe6NmG4kV0qj8wH6j/HpI6mGvnDuMqq/3FzhaytqjA+B28RylGpCUfuRtdPQnU5AzRnlaIhEZ3I2J9ZNFs2smajiX/qb1kqnLmZ3ceRj9OqDZ2kiqzXEbmD4G1OM1xtVb5SRYiqtJGjwtF6xN68dxH/eab/q6/wDJmn6Kh/FGX0+q3aqOfFjNXWqS1kxuacdIokUDMI1kb6kyzVELE1AouxAHeZra5Iiqr42+lMeZH6CZ2eZKkzHD0dbneaylwJYxJMjNxAEAQBAEAQBAEAQBAEAQBAEAQBAPCJkGDU7zKZhoi1sEDJI1LEbgQnwJBuNCNiNDJlVTyZG6ZupYyumzZh0cX+e/zkcqNGXDuNdlkgcaf7dMH8LEfI3kTwcf2yMK6B4qp3Vx5A/vMfpZLRo3UjE49Op81MbiZspoxOLTr8j/AImdzPkbbcTz6UnX5H/EbqfIbcTNcYnU/wBpmd1Iw5o3JxNRsrnyH+ZuqTNG7m0cZb7NMeLN+wH7zbZS4muw2a6nEKz/AGgo+4LfM3Pzi6MqkjUuGJN2JJ6k3PqZo5kqgSUpASNyuSJGyamRAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEA8ImQYmkJnaZiyNZwwmdtmNlGBwYm28ZjYRicEI3hjYPPoQmd4NgfQhG8GwZDBiY3g2DMYYTG2zOyZrRE12mbbJsCCYuZsezAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAP/9k=') no-repeat center/cover; }
+
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        p { color: #999; margin-bottom: 2rem; }
+
+        .tabs { display: flex; margin-bottom: 2rem; }
+        .tabs button { padding: 10px 25px; font-size: 1rem; border: none; cursor: pointer; }
+        .tabs button.active { background: orange; color: white; }
+        .tabs button:not(.active) { background: #fbd7b1; color: #999; }
+
+        .form { width: 100%; max-width: 400px; }
+        .input-group { margin-bottom: 1rem; position: relative; }
+        .input-group input {
+            width: 100%; padding: 12px 40px 12px 40px;
+            border: 2px solid #ff8c00; border-radius: 10px;
+        }
+        .input-group i.fa-user, .input-group i.fa-lock {
+            position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+            color: #666;
+        }
+        .input-group i.fa-check {
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+            color: green;
+        }
+
+        .btn-orange {
+            background: orange; color: white; padding: 12px;
+            border: none; width: 100%; border-radius: 10px; font-weight: bold; font-size: 1rem; cursor: pointer;
+        }
+        .btn-orange:hover { background: #d86600; }
+
+        .small { font-size: 0.9rem; color: #666; }
+        .checkbox-group { display: flex; align-items: center; gap: 10px; margin: 1rem 0; }
+
+        .otp-inputs { display: flex; justify-content: space-between; gap: 10px; margin: 2rem 0; }
+        .otp-inputs input {
+            width: 60px; height: 60px; font-size: 2rem; text-align: center;
+            border: 2px solid orange; border-radius: 10px;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+<div class="left">
+    <h1>Bienvenue</h1>
+    <p>Veuillez entrer vos informations svp!</p>
+
+    <div class="tabs">
+        <button id="btn-login" class="active" onclick="toggleForm('login')">Connexion</button>
+        <button id="btn-register" onclick="toggleForm('register')">Inscription</button>
+    </div>
+
+    <div class="form" id="form-login">
+        <div class="input-group">
+            <i class="fa fa-user"></i>
+            <input type="email" placeholder="Email" oninput="checkValid(this)">
+            <i class="fa fa-check hidden"></i>
+        </div>
+        <div class="input-group">
+            <i class="fa fa-lock"></i>
+            <input type="password" placeholder="Mot de passe" oninput="checkValid(this)">
+            <i class="fa fa-check hidden"></i>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox"> <label>Se souvenir de moi</label>
+            <a href="#" class="small" style="margin-left:auto;">Mot de passe oublié ?</a>
+        </div>
+        <button class="btn-orange">Connexion</button>
+    </div>
+
+    <div class="form hidden" id="form-register">
+        <div class="input-group">
+            <i class="fa fa-user"></i>
+            <input type="text" placeholder="Nom" oninput="checkValid(this)">
+            <i class="fa fa-check hidden"></i>
+        </div>
+        <div class="input-group">
+            <i class="fa fa-user"></i>
+            <input type="email" placeholder="Email" oninput="checkValid(this)">
+            <i class="fa fa-check hidden"></i>
+        </div>
+        <div class="input-group">
+            <i class="fa fa-lock"></i>
+            <input type="password" placeholder="Mot de passe fort" oninput="checkPasswordStrength(this)">
+            <i class="fa fa-check hidden"></i>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox"> <label>J'accepte les <a href="#"><strong>conditions générales</strong></a></label>
+        </div>
+        <button class="btn-orange" onclick="showOtpForm()">Suivant</button>
+    </div>
+
+    <div class="form hidden" id="form-otp">
+        <p class="small">Un OTP vient d'être envoyé à <strong>email@exemple.com</strong>, veuillez entrer le code.<br>Si vous n'avez pas reçu le code, <a href="#">cliquez-ici</a></p>
+        <div class="otp-inputs">
+            <input type="text" maxlength="1">
+            <input type="text" maxlength="1">
+            <input type="text" maxlength="1">
+            <input type="text" maxlength="1">
+        </div>
+        <button class="btn-orange">Soumettre</button>
+    </div>
+</div>
+
+<div class="right"></div>
+
+<script>
+    function toggleForm(type) {
+        document.getElementById("btn-login").classList.remove("active");
+        document.getElementById("btn-register").classList.remove("active");
+        document.getElementById("form-login").classList.add("hidden");
+        document.getElementById("form-register").classList.add("hidden");
+        document.getElementById("form-otp").classList.add("hidden");
+
+        if (type === "login") {
+            document.getElementById("btn-login").classList.add("active");
+            document.getElementById("form-login").classList.remove("hidden");
+        } else {
+            document.getElementById("btn-register").classList.add("active");
+            document.getElementById("form-register").classList.remove("hidden");
+        }
+    }
+
+    function showOtpForm() {
+        document.getElementById("form-register").classList.add("hidden");
+        document.getElementById("form-otp").classList.remove("hidden");
+    }
+
+    function checkValid(input) {
+        const icon = input.nextElementSibling;
+        if (input.value.trim().length > 2) {
+            icon.classList.remove("hidden");
+        } else {
+            icon.classList.add("hidden");
+        }
+    }
+
+    function checkPasswordStrength(input) {
+        const icon = input.nextElementSibling;
+        const strongPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        if (strongPassword.test(input.value)) {
+            icon.classList.remove("hidden");
+        } else {
+            icon.classList.add("hidden");
+        }
+    }
+
+    document.getElementById("form-register").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const nom = document.getElementById("register-nom").value;
+        const email = document.getElementById("register-email").value;
+        const motDePasse = document.getElementById("register-password").value;
+
+        fetch("http://localhost:8080/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nom, email, motDePasse })
+        })
+            .then(res => res.text())
+            .then(msg => {
+                alert(msg);
+                document.getElementById("email-otp").innerText = email;
+                document.getElementById("otp-form").style.display = "block";
+                document.getElementById("register-form").style.display = "none";
+            })
+            .catch(() => alert("Erreur lors de l'inscription"));
+    });
+
+    document.getElementById("form-register").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const nom = document.getElementById("register-nom").value;
+        const email = document.getElementById("register-email").value;
+        const motDePasse = document.getElementById("register-password").value;
+
+        fetch("http://localhost:8080/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nom, email, motDePasse })
+        })
+            .then(res => res.text())
+            .then(msg => {
+                alert(msg);
+                document.getElementById("email-otp").innerText = email;
+                document.getElementById("otp-form").style.display = "block";
+                document.getElementById("register-form").style.display = "none";
+            })
+            .catch(() => alert("Erreur lors de l'inscription"));
+    });
+
+    document.getElementById("form-otp").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const email = document.getElementById("email-otp").innerText;
+        const otp = [...document.querySelectorAll(".otp-digit")]
+            .map(input => input.value)
+            .join("");
+
+        fetch("http://localhost:8080/api/auth/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, otp })
+        })
+            .then(res => res.text())
+            .then(msg => {
+                alert(msg);
+                document.getElementById("otp-form").style.display = "none";
+                document.getElementById("login-form").style.display = "block";
+            })
+            .catch(() => alert("Code OTP invalide"));
+    });
+
+    document.querySelector('#form-login .btn-orange').addEventListener('click', function () {
+        const email = document.querySelector('#form-login input[type="email"]').value;
+        const motDePasse = document.querySelector('#form-login input[type="password"]').value;
+
+        fetch("http://localhost:8080/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, motDePasse })
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erreur de connexion");
+                return res.json();
+            })
+            .then(data => {
+                alert("Connexion réussie !");
+                // Ici tu peux stocker le token dans localStorage ou cookie
+                localStorage.setItem("token", data.token);
+                window.location.href = "index.html";
+            })
+            .catch(() => alert("Échec de connexion"));
+    });
+
+
+
+
+</script>
+</body>
+</html>

@@ -4,7 +4,7 @@ services:
     container_name: postgres_e-boutique
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Maman2k22@
+      POSTGRES_PASSWORD: 123456789
       POSTGRES_DB: e-boutique
     ports:
       - "5444:5432"

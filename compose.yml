@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123457
-      POSTGRES_DB: e-boutique
+      POSTGRES_DB: eboutique
     ports:
       - "5444:5432"
     volumes:

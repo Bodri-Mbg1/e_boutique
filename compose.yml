@@ -3,7 +3,7 @@ services:
     image: postgres:15
     container_name: postgres_e-boutique
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: eboutiqueuser
       POSTGRES_PASSWORD: 123457
       POSTGRES_DB: eboutique
     ports:

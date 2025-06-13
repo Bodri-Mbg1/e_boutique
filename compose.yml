@@ -32,3 +32,4 @@ volumes:
 
 networks:
   e-boutique-net:
+     - db-data:/var/lib/postgresql/data

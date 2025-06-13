@@ -43,7 +43,8 @@ public class SecurityConfig {
         config.setAllowedOriginPatterns(List.of(
                 "http://localhost:63342",     // ton front HTML
                 "http://127.0.0.1:5500",      // si tu testes avec Live Server
-                "http://localhost:3000"       // optionnel React
+                "http://localhost:3000",       // optionnel React
+                "https://monprojet.highticketdeveloper.com"
         ));
 
         config.setAllowedHeaders(List.of("*"));

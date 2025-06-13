@@ -23,7 +23,12 @@ services:
     ports:
       - "9191:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/eboutique
+
+    SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/eboutique
+      SPRING_DATASOURCE_USERNAME: eboutiqueuser
+      SPRING_DATASOURCE_PASSWORD: 123457
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
     networks:
       - e-boutique-net
 
@@ -32,4 +37,3 @@ volumes:
 
 networks:
   e-boutique-net:
-     - db-data:/var/lib/postgresql/data
